@@ -1,0 +1,32 @@
+class Solution{
+	public:
+	
+	int mod=1e9+7;
+	
+	long dp[2][100000+1];
+	
+	long solve(bool prev, int n){
+	    if(n==0) return 1;
+	    
+	    if(dp[prev][n]!=-1) return dp[prev][n];
+	    
+	    long ans=0;
+	   
+	    if(!prev){
+	        ans = (ans + solve(true,n-1))%mod;
+	    } 
+	    
+	    ans = (ans + solve(false,n-1))%mod;
+	    
+	    return dp[prev][n]=ans%mod;
+	}
+	
+	int TotalWays(int N)
+	{
+	    memset(dp,-1,sizeof(dp));
+	    
+	    long ans=solve(false,N);
+	    
+	    return (ans*ans)%mod;
+	}
+};
